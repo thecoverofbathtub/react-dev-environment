@@ -33,7 +33,7 @@ const config = {
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve('./build'),
+        path: path.resolve('./dist'),
         publicPath: '/'
     },
     plugins: [
