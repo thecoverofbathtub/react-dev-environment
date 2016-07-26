@@ -39,7 +39,7 @@ const config = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            favicon: './assets/favicon.png',
+            favicon: './src/assets/favicon.png',
             filename: 'index.html',
             hash: false,
             inject: 'body',
@@ -52,5 +52,23 @@ const config = {
         sourceComments: false
     }
 };
+
+if (process.env.NODE_ENV === 'production') {
+    config.plugins.push(
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        new webpack.optimize.OccurenceOrderPlugin()
+    );
+} else {
+    config.devtool = '#source-map';
+}
 
 module.exports = config;
